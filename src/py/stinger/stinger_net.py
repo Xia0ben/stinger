@@ -176,11 +176,12 @@ class StingerStream():
     self.vertex_updates_count += 1
 
   def send_batch(self):
-    libstinger_net['stream_send_batch'](self.sock_handle, c_int(self.only_strings), 
-	     self.insertions, self.insertions_count, 
-       self.deletions, self.deletions_count, 
-       self.vertex_updates, self.vertex_updates_count,
-       self.undirected)
+    libstinger_net['stream_send_batch'](
+            c_int(self.sock_handle), c_int(self.only_strings),
+            self.insertions, c_int64(self.insertions_count),
+            self.deletions, c_int64(self.deletions_count),
+            self.vertex_updates, c_int64(self.vertex_updates_count),
+            c_bool(self.undirected))
     self.insertions_count = 0
     self.deletions_count = 0
     self.vertex_updates_count = 0
@@ -349,3 +350,4 @@ class StingerMon():
 
   def wait_for_sync(self):
     libstinger_net['stinger_mon_wait_for_sync'](self.mon)
+
