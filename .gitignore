@@ -29,3 +29,6 @@
 
 *.pickle
 /flask/stinger_paths.py
+
+# Jetbrains IDE files/folders
+.idea/
